@@ -1,0 +1,1 @@
+{"level":"error","message":"Error al intentar renderizar tabla de productos: TypeError: Cannot read property 'length' of undefined"}

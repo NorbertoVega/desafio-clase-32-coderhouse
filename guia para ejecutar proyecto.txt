@@ -1,0 +1,54 @@
+/*** Para correr el proyecto ***/
+1- Hacer un npm install.
+2- En Mysql Workbench ejecutar(luego de levantar con XAMPP Mysql):
+          create database ecommerce;
+con esto creamos la base de datos.
+3- Ejecutar: node .\src\utils\crear_tabla_productos.utils.js
+para agregar algunos datos a la tabla productos.
+4-Ejecutar el proyecto: node server.js --port 3000 --modo fork
+
+
+
+/*** Comandos e instrucciones usados para las distintas consignas***/
+
+/* Artillery */
+npm i -g artillery
+
+En src/router/info.js debe estar descomentado el console.log de la línea 24
+node --prof server.js --port 3000 --modo fork
+En otra terminal ejecutar:
+artillery quick --count 20 -n 50 "http://localhost:3000/api/info" > result_bloq.txt
+frenar el server (ctrl + c)
+renombrar el isolate a bloq-v8.log
+
+En src/router/info.js debe estar comentado el console.log de la línea 24
+node --prof server.js --port 3000 --modo fork
+En otra terminal ejecutar:
+artillery quick --count 20 -n 50 "http://localhost:3000/api/info" > result_nobloq.txt
+frenar el server (ctrl + c)
+renombrar el isolate a nobloq-v8.log
+
+node --prof-process bloq-v8.log > result_prof-bloq.txt
+node --prof-process nobloq-v8.log > result_prof-nobloq.txt
+
+
+
+/* Profiler con inspector de Chrome*/
+node --inspect server.js 
+chrome://inspect
+open dedicated devtools for node
+-> profiler -> start
+en otra terminal: artillery quick --count 20 -n 50 "http://localhost:8080/api/infobloq" > result_bloq_inspect_chrome.txt
+-> profiler -> stop
+
+/* Autocannon y 0x*/
+npm i autocannon
+npm i -g 0x
+
+En benchmark.js debe estar descomentada la línea 24
+npm start
+npm test
+En benchmark.js debe estar descomentada la línea 25
+npm test
+frenar el npm start
+abrir el html con el gráfico de flama
